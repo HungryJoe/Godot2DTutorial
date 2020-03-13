@@ -36,8 +36,8 @@ public class Enemy : Node2D
   public void _on_Area2D_area_entered(Area2D area) {
     if (area.GetCollisionLayerBit(3)) {
       explosion.Position = this.Position;
-      ((AnimationPlayer)explosion.GetNode("AnimationPlayer")).Play("Explode");
       GetParent().AddChild(explosion);
+      ((AnimationPlayer)explosion.GetNode("AnimationPlayer")).Play("Explode");
       globals.kills += 1;
       QueueFree();
     }

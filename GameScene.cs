@@ -27,7 +27,7 @@ public class GameScene : Node2D
       player.AddChild(cam);
       AddChild(player);
 
-      ((Label)GetNode("HUD").GetChild(0)).Text = "Stage " + globals.currentStage;
+      ((Label)GetNode("HUD/Stage")).Text = "Stage " + globals.currentStage;
 
       SpawnEnemies();
       state = GameState.Running;
@@ -36,7 +36,7 @@ public class GameScene : Node2D
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   public override void _Process(float delta)
   {
-    ((Label)GetNode("HUD").GetChild(1)).Text = "Kills: " + globals.kills;
+    ((Label)GetNode("HUD/Kills")).Text = "Kills: " + globals.kills;
   }
 
   public override void _Input(InputEvent @event) {
@@ -61,7 +61,7 @@ public class GameScene : Node2D
     RemoveChild(player);
 
     ((Label)GetNode("HUD/Stage")).Text = "Game Over";
-    ((Node2D)GetNode("HUD/Stage")).Position = new Vector2(1280/2, 720/2);
+    ((Control)GetNode("HUD/Stage")).RectPosition = new Vector2(1280/2, 720/2);
   }
 
   public void SpawnEnemy(int x, int y) {
