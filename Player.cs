@@ -5,7 +5,7 @@ public class Player : Node2D
 {
     public int vertVel {get; set;}
 
-    private const int HOR_SPEED = 150;
+    private const int HOR_SPEED = 600;
     private const int VERT_SPEED_INCREMENT = 10;
     private const int MAX_VERTICAL_SPEED = 200;
 
