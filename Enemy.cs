@@ -4,6 +4,7 @@ using System;
 public class Enemy : Node2D
 {
     private Sprite sprite;
+    private Node2D explosion;
     private int speed;
 
     private const int BASE_SPEED = 100;
@@ -16,13 +17,14 @@ public class Enemy : Node2D
     public override void _Ready()
     {
       speed = BASE_SPEED + globals.currentStage * 10;
+      explosion = (Node2D)ResourceLoader.Load<PackedScene>("res://Explosion.tscn").Instance();
     }
 
     public override void _EnterTree() {
       sprite = new Sprite();
       Random rng = new Random();
-      sprite.Texture = ResourceLoader.Load("res://assets/graphics/enemies/" +
-          sprites[rng.Next(0,sprites.Length)]) as Texture;
+      sprite.Texture = ResourceLoader.Load<Texture>("res://assets/graphics/enemies/" +
+          sprites[rng.Next(0,sprites.Length)]);
       AddChild(sprite);
     }
 
@@ -33,7 +35,11 @@ public class Enemy : Node2D
 
   public void _on_Area2D_area_entered(Area2D area) {
     if (area.GetCollisionLayerBit(3)) {
-
+      explosion.Position = this.Position;
+      ((AnimationPlayer)explosion.GetNode("AnimationPlayer")).Play("Explode");
+      GetParent().AddChild(explosion);
+      globals.kills += 1;
+      QueueFree();
     }
   }
 }

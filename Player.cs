@@ -4,10 +4,12 @@ using System;
 public class Player : Node2D
 {
     public int vertVel {get; set;}
+    public int horVel {get; set;}
     private PackedScene bulletClass;
+    private Node2D explosion;
     private Timer shootCD;
 
-    private const int HOR_SPEED = 600;
+    private const int HOR_SPEED = 150;
     private const int VERT_SPEED_INCREMENT = 10;
     private const int MAX_VERTICAL_SPEED = 200;
     private const float MAX_RATE_OF_FIRE = 3f;//max bullets fired per second
@@ -16,15 +18,17 @@ public class Player : Node2D
     public override void _Ready()
     {
       bulletClass = ResourceLoader.Load<PackedScene>("res://Bullet.tscn");
+      explosion = (Node2D)ResourceLoader.Load<PackedScene>("res://Explosion.tscn").Instance();
       shootCD = GetNode<Timer>("ShootCoolDown");
       shootCD.WaitTime = 1/MAX_RATE_OF_FIRE;
       vertVel = 0;
+      horVel = HOR_SPEED;
     }
 
   // Called every frame. 'delta' is the elapsed time since the previous frame.
   public override void _Process(float delta)
   {
-    MoveLocalX(HOR_SPEED * delta);
+    MoveLocalX(horVel * delta);
 
     float sizeY = GetViewportRect().Size.y;
     if (this.Position.y > 1 && this.Position.y <= sizeY) {
@@ -52,5 +56,10 @@ public class Player : Node2D
       GetNode("/root/GameSceneRoot").AddChild(bullet);
       shootCD.Start();
     }
+  }
+
+  public void explode() {
+    explosion.Position = this.Position;
+    GetParent().AddChild(explosion);
   }
 }
