@@ -17,3 +17,4 @@ All assets were grabbed from [this repo](https://github.com/serapth/Godot2DTutor
 * https://godotengine.org/qa/20915/godot-3-load-preload-functions-in-c%23
 * https://godotengine.org/qa/19380/how-to-instance-a-scene-in-c%23
 * https://social.msdn.microsoft.com/forums/en-US/3d6da5b7-2c14-4061-ac01-d0effc06b205/cannot-modify-the-return-value-of-because-it-is-not-a-variable
+* https://stackoverflow.com/questions/1747654/error-cannot-modify-the-return-value-c-sharp

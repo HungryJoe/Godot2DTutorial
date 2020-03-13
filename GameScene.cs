@@ -18,7 +18,7 @@ public class GameScene : Node2D
       state = GameState.Loading;
       enemyClass = ResourceLoader.Load<PackedScene>("res://Enemy.tscn");
 
-      player = (Player)(Node2D)ResourceLoader.Load<PackedScene>("res://Player.tscn").Instance();
+      player = (Player)ResourceLoader.Load<PackedScene>("res://Player.tscn").Instance();
       player.Position = new Vector2(300, 720/2);
 
       cam = new Camera2D();
@@ -60,12 +60,12 @@ public class GameScene : Node2D
     }
     RemoveChild(player);
 
-    ((Label)GetNode("HUD").GetChild(0)).Text = "Game Over";
-    ((Node2D)GetNode("HUD").GetChild(0)).Position = new Vector2(1280/2, 720/2);
+    ((Label)GetNode("HUD/Stage")).Text = "Game Over";
+    ((Node2D)GetNode("HUD/Stage")).Position = new Vector2(1280/2, 720/2);
   }
 
   public void SpawnEnemy(int x, int y) {
-    Node2D enemy = (Node2D)enemyClass.Instance();
+    Enemy enemy = (Enemy)enemyClass.Instance();
     enemy.Position = new Vector2(x, y);
     AddChild(enemy);
   }
